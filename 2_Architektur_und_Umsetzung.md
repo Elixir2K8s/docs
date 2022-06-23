@@ -26,3 +26,15 @@ Die Docker Registry wurde der Einfachheit halber mit einer docker-compose.yaml k
 
 Um das Container Image zu bauen und im Anschluss auf die Image Registry zu pushen, muss das [Repo mit der ToDo-Anwendung](https://github.com/Elixir2K8s/doit) geclont werden, falls dies nicht schon erfolgt ist. Im `doit` Verzeichnis wird nun der Befehl `docker-compose build` ausgeführt um die Anwendung zu bauen. Mit dem Kommando `docker-compose push` wird das Image der Anwendung auf die Registry befördert.
 
+### Erstellung der Service Definitions
+
+Im Gegensatz zu Docker-Compose benötigt bei Kubernetes jeder Service mehrere Dateien die diesen definieren, auch Service Definitions genannt. Die Minimalkonfiguration eines Dienstes besteht hierbei aus Deployment und Service. Hierbei konfiguriert das Deployment den Dienst, bspw. wie viele Instanzen von dem Container laufen sollen, welches Container Image genutzt werden soll und welche Environment Variablen, während der Service für die Veröffentlichung zuständig ist, also unter welchem Hostname, Port, etc. der Dienst erreichbar sein soll.
+
+Die Erstellung der Service Definitions von Hand ist ein sehr zeitintensiver Prozess, weshalb wir das Tool [kompose](https://kompose.io/) nutzen. um aus der [docker-compose.yaml](https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) der ToDo-Anwendung die grundlegenden Service Definitions zu generieren. Da die autogenerierten Service Definitions jedoch nicht perfekt waren mussten noch einige kleine Änderungen, bspw. bei den Ports oder der Anzahl der Replicas vorgenommen werden. Auch der Headless Service für die AutoDiscovery der Elixir-Pods untereinander musste noch manuell ergänzt werden. Gleiches gilt auch für den HTTP Ingress Controller, der die Elixir-Anwendung via HTTPS auf Port 443 zugänglich macht.
+
+### Deployment der Anwendung
+
+Um die Anwendung auf dem MicroK8s Kubernetes Cluster zu deployen wird jetzt innerhalb vom [k8s-service-definitions](https://github.com/Elixir2K8s/k8s-service-definitions) Directory das kubectl Utility verwendet. Im ersten Schritt werden mit `microk8s.kubectl apply -f` die Service Definitionen aus dem aktuellen Ordner auf das Kubernetes Cluster angewendet. Im nächsten Schritt muss mit `microk8s.kubectl exec deployment.apps/elixir /app/bin/doit eval "Doit.Release.create"` die Datenbank erzeugt werden. Zuletzt wird mit `kubectl exec deployment.apps/elixir /app/bin/doit eval "Doit.Release.migrate"` die Datenbankmigration ausgeführt.
+
+Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
+
