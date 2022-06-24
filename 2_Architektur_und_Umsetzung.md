@@ -1,5 +1,22 @@
 # Architektur und Umsetzung
 
+## DoIt-Anwendung
+
+Unsere Anwendung trägt den Name „DoIt“. Mit deren Hilfe kann man die ToDo-Listen erstellen und verwalten. 
+
+### Registrierung und Anmeldung
+
+Um DoIt zu benutzen, muss man ein Nutzerkonto erstellen. Bei der Registrierung müssen E-Mail (String) und Passwort (String) Felder ausgefüllt werden. E-Mail-Adresse wird zusätzlich geprüft, ob das String keine Leerzeichen und genau ein „@“ enthält. E-Mail-Adresse kann maximal einer Länge von maximal 160 Zeichen sein. Bei der Anmeldung wird der Nutzer nach seiner E-Mail-Adresse und Passwort gefragt. Falls die eingegebene Kombination falsch ist, wird eine entsprechende Fehlernachricht angezeigt und die Anmeldungsdateien erneut eingegeben werden müssen. Im Fall der erfolgreichen Registrierung oder Anmeldung wird dem Nutzer die Liste von ihm erstellten Todos angezeigt.
+
+### Todos Verwaltung
+
+Ein Todo besteht aus dem Titel (String), der Beschreibung (String), der Wichtigkeit (Integer, default: 0) und einem „Done“ Boolean, das bezeichnet, ob die Aufgabe erledigt ist. Durch das Klicken auf „New Todo“ wird der Nutzer auf eine Seite weitergeleitet, wo ein neues Todo erstellt werden kann. Nach dem Ausfüllen von oben genannten Felder, kann man auf „Add Todo“ klicken, um es zu speichern. Das Todo wird dann dem aktuell eingeloggten Nutzer zugewiesen und in seiner Liste angezeigt.
+Der eingeloggte Nutzer ist in der Lage seine Todos zu bearbeiten. Damit ein Todo bearbeitet werden kann, muss der Nutzer auf „Edit“ klicken. Der Nutzer wird dann auf eine Bearbeitungsseite weitergeleitet, wo er die Werte allen Felder ändern kann. Nach dem Eintragen von gewünschten Werten, muss „Save Todo“ geklickt werden und dem Nutzer wird die Liste allen Todos angezeigt.
+Um ein Todo zu loeschen, muss „Delete“ geklickt werden. Danach wird ein Todo gelöscht und der Nutzer auf die Todo-Liste weitergeleitet. 
+
+### Kontoverwaltung
+
+
 ## Kubernetes
 
 ### Auswahl der Kubernetes Distribution
