@@ -2,7 +2,14 @@
 ## Ziel und Aufgabestellung
 Das Ziel unseres Projektes ist die Zusammenarbeit von Elixir und Kubernetes zu untersuchen. Es wird durch die Entwicklung einer mittels Kubernetes verwalteten Elixir-Anwendung erreicht.
 ## Elixir
-Elixir ist eine funktionale Programmiersprache, die BEAM (Erlang Virtual Machine) verwendet. Die Sprache eignet sich sehr gut für die Anwendungen, wo die Nebenläufigkeit, geringe Latenz und gute Skalierbarkeit eine große Rolle spielen. Elixir kommt auch exzellent mit großem Verkehr zurecht. Die Echtzeitanwendungen, wie zum Beispiel ein Chat, kann ein klassisches Beispiel davon sein. Die Einfachheit von Elixir macht es leicht die Anwendungen zu entwickeln und später zu unterstützen. Im Rahmen von Elixir wird auch Phoenix Framework in unserem Projekt verwendet. Phoenix ist ein Web-Entwicklung Framework das Serverseits implementiert ein Model View Controller (MVC) und stellt mehrere Funktionalitäten zur Verfügung, die sehr hilfreich bei der Entwicklung einer Echtzeitanwendung sind.
+Elixir ist eine funktionale Programmiersprache, die BEAM VM (Erlang Virtual Machine) verwendet. Die Sprache eignet sich sehr gut für die Anwendungen, wo die Nebenläufigkeit, geringe Latenz und gute Skalierbarkeit eine große Rolle spielen. Elixir kommt auch exzellent mit großem Verkehr zurecht. Die Echtzeitanwendungen, wie zum Beispiel ein Chat, kann ein klassisches Beispiel davon sein. Die Einfachheit von Elixir macht es leicht die Anwendungen zu entwickeln und später zu unterstützen. Im Rahmen von Elixir wird auch Phoenix Framework in unserem Projekt verwendet. Phoenix ist ein Web-Entwicklung Framework das Serverseits implementiert ein Model View Controller (MVC) und stellt mehrere Funktionalitäten zur Verfügung, die sehr hilfreich bei der Entwicklung einer Echtzeitanwendung sind.
+
+add:
+⦁ Immutable
+⦁ Concurrent
+⦁ Fault Tolerant
+⦁ Distributed
+
 ## Docker
 Die Anwendung wird in unserem Projekt mit Hilfe von Docker in Container verpackt. Solches Verfahren gewährt die Portierbarkeit der Anwendung – sie wird sich auf jedem System mit laufendem Docker gleich verhalten. Die Container, im Gegensatz zu Virtuelle Maschinen, enthalten kein Betriebssystem, also werden sie schneller erschafft und gestartet. Ein anderer großer Vorteil von einem Container ist, dass er völlig isoliert ist, also sind sie von den anderen Container unabhängig. Das heißt, wenn es zu einer Situation kommt, wo zwei verschiedene Container eine andere Version von der gleichen Software verwenden, gibt es keine Konflikte, sondern werden beide Versionen in entsprechenden Container verwendet. Mit Hilfe von Docker-Compose wird die Anwendung definiert und gestartet.
 ## Kubernetes
