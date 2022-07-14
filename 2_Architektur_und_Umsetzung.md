@@ -28,19 +28,24 @@ Bei Multi-Container Anwendungen sind die Tools hilfreich, die diese Anwendungen 
 
 Um Docker-Compose zu installieren, muss zuerst Docker Engine und containerd (Container Runtime) installiert werden. Dazu wird ein Repository erstellt
 `$ sudo dnf -y install dnf-plugins-core` und
-`$ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo`
+`$ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo`.
+
 Dann kann die neuste Version von Docker Engine, containerd und Docker Compose installiert werden
-`$ sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+`$ sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin`.
+
 Falls GPG Schlüssel akzeptiert werden muss, soll das Fingerprint als `060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35` überprüft und, wenn korrekt, akzeptiert werden.
+
 Am Ende soll der Docker gestartet werden
-`$  sudo systemctl start docker`
+`$  sudo systemctl start docker`.
 Um zu überprüfen, dass Docker korrekt installiert wurde, kann ein `hello-world` Image gelaufen werden
-`$  sudo docker run hello-world`
+`$  sudo docker run hello-world`.
+
 Für das Installationsverfahren auf den anderen Linux Distributionen oder Windows kann die [Docker Dokumentation](https://docs.docker.com/engine/install/) angeschaut werden.
 
 ### Deployment der Anwendung
 
 Um die Anwendung zu deployen, sollte zuerst das Image mit `docker-compose build` gebaut werden, dann kann es mit `docker-compose up` gelaufen werden. Jetzt muss die erste Datenbank erstellt werden mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.create"` und dann sollte sie mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
+
 Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
 
 ## Kubernetes
