@@ -16,6 +16,32 @@ Um ein Todo zu loeschen, muss „Delete“ geklickt werden. Danach wird ein Todo
 
 ### Kontoverwaltung
 
+Der Nutzer kann seine Personaldaten durch das Klicken auf den „Settings“ Knopf bearbeiten. Er wird dann zur Seite weitergeleitet, wo seine E-Mail Adresse und Passwort geändert werden können. Um die E-Mail Adresse zu ändern, müssen zwei Felder ausgefüllt werden: die neue E-Mail Adresse und das aktuelle Passwort. Die Änderung muss dann durch das Klicken auf den „Change email“ Knopf bestätigt werden. Die Änderung von Passwort erfolgt in ähnlicher Weise: die drei Felder müssen ausgefüllt werden: das Neue Passwort wiederholt in zwei verschiedenen Felder und das aktuelle Passwort. Die Passwortänderung muss durch das Klicken auf den „Change password“ Knopf bestätigt werden.
+
+## Docker Compose
+
+### Docker-Compose
+
+Bei Multi-Container Anwendungen sind die Tools hilfreich, die diese Anwendungen definieren. Zu diesem Zweck wird in unserem Projekt Docker-Compose verwendet. In [docker-compose.yml]( https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) YAML Datei befindet sich die Definition unserer DoIt Anwendung, damit wird es gewährleistet, dass die Anwendung sich bei jedem Nutzer gleich verhaltet. 
+
+### Installation von Docker-Compose (anhand von Fedora)
+
+Um Docker-Compose zu installieren, muss zuerst Docker Engine und containerd (Container Runtime) installiert werden. Dazu wird ein Repository erstellt
+`$ sudo dnf -y install dnf-plugins-core` und
+`$ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo`
+Dann kann die neuste Version von Docker Engine, containerd und Docker Compose installiert werden
+`$ sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+Falls GPG Schlüssel akzeptiert werden muss, soll das Fingerprint als `060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35` überprüft und, wenn korrekt, akzeptiert werden.
+Am Ende soll der Docker gestartet werden
+`$  sudo systemctl start docker`
+Um zu überprüfen, dass Docker korrekt installiert wurde, kann ein `hello-world` Image gelaufen werden
+`$  sudo docker run hello-world`
+Für das Installationsverfahren auf den anderen Linux Distributionen oder Windows kann die [Docker Dokumentation](https://docs.docker.com/engine/install/) angeschaut werden.
+
+### Deployment der Anwendung
+
+Um die Anwendung zu deployen, sollte zuerst das Image mit `docker-compose build` gebaut werden, dann kann es mit `docker-compose up` gelaufen werden. Jetzt muss die erste Datenbank erstellt werden mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.create"` und dann sollte sie mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
+Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
 
 ## Kubernetes
 
