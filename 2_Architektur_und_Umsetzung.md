@@ -2,34 +2,34 @@
 
 ## DoIt-Anwendung
 
-Unsere Anwendung trägt den Name „DoIt“. Mit deren Hilfe kann man die ToDo-Listen erstellen und verwalten. Die Anwendung wurde in Elixir geschrieben, mit Hilfe von HTML und CSS Tailwind.
+Unsere Anwendung trägt den Namen „DoIt“. Mit dieser können ToDo-Listen erstellt und verwaltet werden. Die Anwendung wurde in Elixir entwickelt, für das Frontend kam zusätzlich das Framework "Tailwind CSS" zum Einsatz.
 
 ### Registrierung und Anmeldung
 
-Um DoIt zu benutzen, muss man ein Nutzerkonto erstellen. Bei der Registrierung müssen E-Mail (String) und Passwort (String) Felder ausgefüllt werden. E-Mail-Adresse wird zusätzlich geprüft, ob das String keine Leerzeichen und genau ein „@“ enthält. E-Mail-Adresse kann maximal einer Länge von maximal 160 Zeichen sein. Bei der Anmeldung wird der Nutzer nach seiner E-Mail-Adresse und Passwort gefragt. Falls die eingegebene Kombination falsch ist, wird eine entsprechende Fehlernachricht angezeigt und die Anmeldungsdateien erneut eingegeben werden müssen. Im Fall der erfolgreichen Registrierung oder Anmeldung wird dem Nutzer die Liste von ihm erstellten Todos angezeigt.
+Um DoIt zu benutzen, muss zunächst ein Nutzerkonto erstellt werden. Bei der Registrierung müssen die Felder E-Mail (String) und Passwort (String) ausgefüllt werden. Bei der E-Mail-Adresse wird zusätzlich geprüft, ob der String keine Leerzeichen und nur ein „@“-Zeichen enthält. Die E-Mail-Adresse kann maximal 160 Zeichen lang sein. Bei der Anmeldung muss der Nutzer sich mit seinen zuvor eingegebenen Daten authentifizieren. Falls die eingegebene Kombination falsch ist, wird eine entsprechende Fehlermeldung angezeigt und die Anmeldedaten müssen erneut eingegeben werden. Bei einer erfolgreichen Registrierung oder Anmeldung wird dem Nutzer die Liste der von ihm erstellten Todos angezeigt.
 
 ### Todos Verwaltung
 
-Ein Todo besteht aus dem Titel (String), der Beschreibung (String), der Wichtigkeit (Integer, default: 0) und einem „Done“ Boolean, das bezeichnet, ob die Aufgabe erledigt ist. Jedes Todo wird auch einem einzigen Nutzer zugewiesen. Durch das Klicken auf „New Todo“ wird der Nutzer auf eine Seite weitergeleitet, wo ein neues Todo erstellt werden kann. Nach dem Ausfüllen von oben genannten Felder, kann man auf „Add Todo“ klicken, um es zu speichern. Das Todo wird dann dem aktuell eingeloggten Nutzer zugewiesen und in seiner Liste angezeigt.
-Der eingeloggte Nutzer ist in der Lage seine Todos zu bearbeiten. Damit ein Todo bearbeitet werden kann, muss der Nutzer auf „Edit“ klicken. Der Nutzer wird dann auf eine Bearbeitungsseite weitergeleitet, wo er die Werte allen Felder ändern kann. Nach dem Eintragen von gewünschten Werten, muss „Save Todo“ geklickt werden und dem Nutzer wird die Liste allen Todos angezeigt.
-Um ein Todo zu löschen, muss „Delete“ geklickt werden. Danach wird ein Todo gelöscht und der Nutzer auf die Todo-Liste weitergeleitet. 
+Ein Todo besteht aus dem Titel (String), der Beschreibung (String), der Wichtigkeit (Integer, default: 0) und einem „Done“ (Boolean), das signalisiert, ob die Aufgabe erledigt wurde. Jedes Todo wird einem einzigen Nutzer zugewiesen. Durch das Klicken auf „New Todo“ wird der Nutzer auf eine Seite weitergeleitet, wo ein neues Todo erstellt werden kann. Nach dem Ausfüllen der oben genannten Felder, kann man auf „Add Todo“ klicken, um es zu speichern. Das Todo wird dann dem Nutzer zugewiesen und in seiner Übersicht angezeigt.
+Der Nutzer ist in der Lage seine Todos zu bearbeiten. Damit ein Todo bearbeitet werden kann, muss der Nutzer auf „Edit“ klicken. Der Nutzer wird dann auf eine Bearbeitungsseite weitergeleitet, wo er die Werte aller Felder ändern kann. Nach dem Eintragen der gewünschten Werte, muss „Save Todo“ geklickt werden und dem Nutzer wird die Liste aller Todos angezeigt.
+Um ein Todo zu löschen, muss auf „Delete“ geklickt werden. Danach wird das Todo gelöscht und der Nutzer auf die Todo-Listen Übersicht weitergeleitet. 
 
 ### Kontoverwaltung
 
-Ein Nutzer besteht aus der E-Mail Adresse, Passwort, verschlüsseltes Passwort und Bestätigungsdatum. Jedem Nutzer wird auch eine Liste von Todos zugewiesen. Der Nutzer kann seine Personaldaten durch das Klicken auf den „Settings“ Knopf bearbeiten. Er wird dann zur Seite weitergeleitet, wo seine E-Mail Adresse und Passwort geändert werden können. Um die E-Mail Adresse zu ändern, müssen zwei Felder ausgefüllt werden: die neue E-Mail Adresse und das aktuelle Passwort. Die Änderung muss dann durch das Klicken auf den „Change email“ Knopf bestätigt werden. Die Änderung von Passwort erfolgt in ähnlicher Weise: die drei Felder müssen ausgefüllt werden: das Neue Passwort wiederholt in zwei verschiedenen Felder und das aktuelle Passwort. Die Passwortänderung muss durch das Klicken auf den „Change password“ Knopf bestätigt werden.
+Ein Nutzer-Eintrag besteht aus der E-Mail Adresse, Passwort, verschlüsseltem Passwort und E-Mail-Bestätigungsdatum. Jedem Nutzer wird eine Liste von Todos zugewiesen. Der Nutzer kann seine Personaldaten durch das Klicken auf den „Settings“ Knopf bearbeiten. Er wird dann zu einer Seite weitergeleitet, wo seine E-Mail Adresse und sein Passwort geändert werden können. Um die E-Mail Adresse zu ändern, müssen zwei Felder ausgefüllt werden: Die neue E-Mail Adresse und das aktuelle Passwort. Die Änderung muss dann durch das Klicken auf den „Change email“ Knopf bestätigt werden. Die Änderung von dem Passwort erfolgt in ähnlicher Weise, die folgenden drei Felder müssen hierfür ausgefüllt werden: Zweifach das neue Passwort (ein weiteres Mal zur Bestätigung) und das aktuelle Passwort. Die Passwortänderung muss durch das Klicken auf den „Change password“ Knopf bestätigt werden.
 
-## Docker Compose
+## Docker-Compose
 
 ### Docker-Compose
 
-Bei Multi-Container Anwendungen sind die Tools hilfreich, die diese Anwendungen definieren. Zu diesem Zweck wird in unserem Projekt Docker-Compose verwendet. In [docker-compose.yml]( https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) YAML Datei befindet sich die Definition unserer DoIt Anwendung, damit wird es gewährleistet, dass die Anwendung sich bei jedem Nutzer gleich verhaltet. Unter Verwendung von Docker-Compose muss die Docker Konfiguration nicht im Rahmen von mehreren vielzeilige Befehle konfiguriert werden, sondern wird die ganze Konfiguration in dieser YAML Datei eingeschlossen. Die durch Docker-Compose konfigurierte Containers können auch im Gegensatz zum normalen `docker run` Befehl gleichzeitig gestartet werden. Ein anderer Vorteil von Docker-Compose ist, dass die Abhängigkeiten zwischen Containers in YAML Datei konfiguriert werden können.
-Docker-Compose kann mit Hilfe von `snap install docker` installiert werden
+Bei Multi-Container Anwendungen sind Tools wie Docker-Compose hilfreich um die Orchestrierung zu definieren. In der [docker-compose.yml]( https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) YAML-Datei befindet sich die Docker-Compose Konfiguration unserer DoIt Anwendung, die Build- und Ausführungsprozesse definiert. Unter Verwendung von Docker-Compose müssen die Container Konfigurationen nicht im Rahmen mehrerer vielzeiliger Befehle konfiguriert werden, sondern die gesamte Konfiguration wird in der Docker-Compose YAML gespeichert. Die durch Docker-Compose konfigurierten Container können im Gegensatz zum normalen `docker run` Befehl gleichzeitig via `docker-compose up` gestartet werden. Ein weiterer Vorteil von Docker-Compose ist, dass die Abhängigkeiten zwischen Containern konfiguriert werden können.
+Docker-Compose wird zusammen mit Docker mit Hilfe von `snap install docker` installiert.
 
 ### Testdeployment der Anwendung
 
-Um die Anwendung zu deployen, sollte zuerst das Image mit `docker-compose build`, ein Wrapper, das für jeden Container `docker build` läuft, gebaut werden, dann können die Containers mit `docker-compose up` erstellt und gestartet werden.
-Jetzt muss die erste Datenbank mit Elixir Pod erstellt werden. Dazu wird `docker-compose run elixir /app/bin/doit eval "Doit.Release.create"` verwendet.
-Dann sollte sie mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
+Um die Anwendung zu deployen, sollten zuerst die Images mit `docker-compose build`, ein Wrapper der für jeden konfigurierten Container `docker build` ausführt, gebaut werden. Anschließend können die Container mit `docker-compose up` erstellt und ausgeführt werden.
+Zuletzt muss das PostgresSQL Datenbankschema über den Elixir Container erstellt werden. Dazu wird `docker-compose run elixir /app/bin/doit eval "Doit.Release.create"` verwendet.
+Dann sollte das Datenbankschema mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
 
 Jetzt sollte die Anwendung unter http://localhost:4000 erreichbar sein.
 
