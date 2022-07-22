@@ -75,6 +75,6 @@ Um die Anwendung auf dem MicroK8s Kubernetes Cluster zu deployen wird jetzt inne
 
 Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
 
-## Grafische Darstellung der Kubernetes Architektur
+## Grafische Darstellung der Architektur
 ![application-diagram](https://github.com/Elixir2K8s/docs/blob/main/application_diagram.png)
 
