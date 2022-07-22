@@ -26,6 +26,8 @@ Betrachtet man den Aspekt der Hochverfügbarkeit bzw. Ausfallsicherheit ist es d
 
 Daher bleiben wir für das Test Deployment auf einem Single Node K8s Cluster bei einer einzelnen Postgres-Instanz.
 
+Alternativ zu einer klassischen SQL-Datenbank, ließe sich auch auf das in Erlang geschriebene Mnesia Datenbanksystem setzen. Dieses bietet ausschließlich eine nativen Erlang-Client an, erlaubt dafür aber auch direkt jegliche Erlang-Terme in der Datenbank zu speichern. Auch eine Hochverfügbarkeit ließe sich ähnlich zum Elixir-Node-Cluster konfigurieren und es wäre im Gegensatz zu Postgres kein komplexes Setup mit Failover, SQLProxy und SQL-Replication nötig.
+
 ## Kubernetes Ingress (TLS) vs integriertes Elixir TLS
 
 Eine essenzielle Funktion, um breite Akzeptanz von Web-Anwendungen sicherzustellen, ist die Verschlüsselung des Datenverkehrs zwischen der Anwendung und dem Nutzer. Im Internet geschieht dies heutzutage meist über das "Transport Layer Security" Protokoll kurz [TLS](https://datatracker.ietf.org/wg/tls/documents/). Gerade die Übermittlung von sensiblen Daten wie Zahlungsinformationen sollte niemals unverschlüsselt passieren. Zudem identifiziert sich der Betreiber der Anwendung über TLS eindeutig gegenüber den Nutzern.
