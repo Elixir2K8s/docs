@@ -18,6 +18,8 @@ Um ein Todo zu löschen, muss auf „Delete“ geklickt werden. Danach wird das 
 
 Ein Nutzer-Eintrag besteht aus der E-Mail Adresse, Passwort, verschlüsseltem Passwort und E-Mail-Bestätigungsdatum. Jedem Nutzer wird eine Liste von Todos zugewiesen. Der Nutzer kann seine Personaldaten durch das Klicken auf den „Settings“ Knopf bearbeiten. Er wird dann zu einer Seite weitergeleitet, wo seine E-Mail Adresse und sein Passwort geändert werden können. Um die E-Mail Adresse zu ändern, müssen zwei Felder ausgefüllt werden: Die neue E-Mail Adresse und das aktuelle Passwort. Die Änderung muss dann durch das Klicken auf den „Change email“ Knopf bestätigt werden. Die Änderung von dem Passwort erfolgt in ähnlicher Weise, die folgenden drei Felder müssen hierfür ausgefüllt werden: Zweifach das neue Passwort (ein weiteres Mal zur Bestätigung) und das aktuelle Passwort. Die Passwortänderung muss durch das Klicken auf den „Change password“ Knopf bestätigt werden.
 
+![doit-app](https://github.com/Elixir2K8s/docs/blob/main/doit.PNG)
+
 ## Docker-Compose
 
 ### Docker-Compose
@@ -71,4 +73,7 @@ Die Erstellung der Service Definitions von Hand ist ein sehr zeitintensiver Proz
 Um die Anwendung auf dem MicroK8s Kubernetes Cluster zu deployen wird jetzt innerhalb vom [k8s-service-definitions](https://github.com/Elixir2K8s/k8s-service-definitions) Directory das kubectl Utility verwendet. Im ersten Schritt werden mit `microk8s.kubectl apply -f` die Service Definitionen aus dem aktuellen Ordner auf das Kubernetes Cluster angewendet. Im nächsten Schritt muss mit `microk8s.kubectl exec deployment.apps/elixir /app/bin/doit eval "Doit.Release.create"` die Datenbank erzeugt werden. Zuletzt wird mit `kubectl exec deployment.apps/elixir /app/bin/doit eval "Doit.Release.migrate"` die Datenbankmigration ausgeführt.
 
 Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
+
+## Grafische Darstellung der Architektur
+![application-diagram](https://github.com/Elixir2K8s/docs/blob/main/application_diagram.png)
 
