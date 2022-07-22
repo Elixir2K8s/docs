@@ -2,7 +2,7 @@
 
 ## DoIt-Anwendung
 
-Unsere Anwendung trägt den Namen „DoIt“. Mit dieser können ToDo-Listen erstellt und verwaltet werden. Die Anwendung wurde in Elixir entwickelt, für das Frontend kam zusätzlich das Framework "Tailwind CSS" zum Einsatz.
+Unsere Anwendung trägt den Namen „DoIt“. Mit dieser können ToDo-Listen erstellt und verwaltet werden. Die Anwendung wurde in Elixir mit dem Phoenix-Framework entwickelt. Für das Frontend kam zusätzlich das CSS-Framework "Tailwind CSS" zum Einsatz.
 
 ### Registrierung und Anmeldung
 
@@ -10,9 +10,10 @@ Um DoIt zu benutzen, muss zunächst ein Nutzerkonto erstellt werden. Bei der Reg
 
 ### Todos Verwaltung
 
-Ein Todo besteht aus dem Titel (String), der Beschreibung (String), der Wichtigkeit (Integer, default: 0) und einem „Done“ (Boolean), das signalisiert, ob die Aufgabe erledigt wurde. Jedes Todo wird einem einzigen Nutzer zugewiesen. Durch das Klicken auf „New Todo“ wird der Nutzer auf eine Seite weitergeleitet, wo ein neues Todo erstellt werden kann. Nach dem Ausfüllen der oben genannten Felder, kann man auf „Add Todo“ klicken, um es zu speichern. Das Todo wird dann dem Nutzer zugewiesen und in seiner Übersicht angezeigt.
-Der Nutzer ist in der Lage seine Todos zu bearbeiten. Damit ein Todo bearbeitet werden kann, muss der Nutzer auf „Edit“ klicken. Der Nutzer wird dann auf eine Bearbeitungsseite weitergeleitet, wo er die Werte aller Felder ändern kann. Nach dem Eintragen der gewünschten Werte, muss „Save Todo“ geklickt werden und dem Nutzer wird die Liste aller Todos angezeigt.
+Ein Todo besteht aus dem Titel (String), der Beschreibung (String), der Wichtigkeit (Integer, default: 0) und einem „Done“ (Boolean), das signalisiert, ob die Aufgabe erledigt wurde. Jedes Todo wird einem einzigen Nutzer zugewiesen. Durch das Klicken auf „Add Todo“ und unter Angabe eines Todo-Textes wird ein neues Todo erstellt. Dieses wird dann dem Nutzer zugewiesen und in seiner Übersicht angezeigt. Der Nutzer ist in der Lage seine Todos zu bearbeiten. Damit ein Todo bearbeitet werden kann, muss der Nutzer auf „Edit“ klicken. Der Nutzer wird dann auf eine Bearbeitungsseite weitergeleitet, wo er die Werte aller Felder ändern kann. Nach dem Eintragen der gewünschten Werte, muss „Save Todo“ geklickt werden und dem Nutzer wird die Liste aller Todos angezeigt.
 Um ein Todo zu löschen, muss auf „Delete“ geklickt werden. Danach wird das Todo gelöscht und der Nutzer auf die Todo-Listen Übersicht weitergeleitet. 
+
+Wie schon in der Einleitung erwähnt, nutzt die Anwendung den im Phoenix-Framework standardmäßig integrierten PubSub-Kanal welcher das Publish-Subscribe Nachrichtenübermittlungsmuster implementiert. Dadurch kann sichergestellt werden, dass sich alle Browserinstanzen selbstständig asynchron über die Websocketverbindung synchronisieren können. In unserer Anwendung funktioniert diese Synchronisation sogar über mehrere Knoten eines Clusters hinweg. Alle möglichen Änderungen an den ToDo´s werden dabei via Broadcast-Nachricht zum Thema "todos" angezeigt. Alle laufenden Browserinstanzen, die sogenannten "subscriber" zum Thema "todos", werden dann über die ausgeführten Änderungen informiert und können sich darauf basierend asynchron aktualisieren.
 
 ### Kontoverwaltung
 
@@ -31,7 +32,7 @@ Docker-Compose wird zusammen mit Docker mit Hilfe von `snap install docker` inst
 
 Um die Anwendung zu deployen, sollten zuerst die Images mit `docker-compose build`, ein Wrapper der für jeden konfigurierten Container `docker build` ausführt, gebaut werden. Anschließend können die Container mit `docker-compose up` erstellt und ausgeführt werden.
 Zuletzt muss das PostgresSQL Datenbankschema über den Elixir Container erstellt werden. Dazu wird `docker-compose run elixir /app/bin/doit eval "Doit.Release.create"` verwendet.
-Dann sollte das Datenbankschema mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
+Dann muss das Datenbankschema mit `docker-compose run elixir /app/bin/doit eval "Doit.Release.migrate"` migriert werden.
 
 Jetzt sollte die Anwendung unter http://localhost:4000 erreichbar sein.
 
@@ -60,13 +61,13 @@ Damit die Anwendung auf Kubernetes deployed werden kann müssen die Container Im
 
 Die Docker Registry wurde der Einfachheit halber mit einer docker-compose.yaml konfiguriert und kann nach dem Clonen des [image-registry repos](https://github.com/Elixir2K8s/image-registry) einfach via `docker-compose up -d` gestartet werden. Nun ist die Image Registry einsatzbereit.
 
-Um das Container Image zu bauen und im Anschluss auf die Image Registry zu pushen, muss das [Repo mit der ToDo-Anwendung](https://github.com/Elixir2K8s/doit) geclont werden, falls dies nicht schon erfolgt ist. Im `doit` Verzeichnis wird nun der Befehl `docker-compose build` ausgeführt um die Anwendung zu bauen. Mit dem Kommando `docker-compose push` wird das Image der Anwendung auf die Registry befördert.
+Um das Container Image zu bauen und im Anschluss auf die Image Registry zu pushen, muss das [Repo mit der ToDo-Anwendung](https://github.com/Elixir2K8s/doit) geklont werden, falls dies nicht schon erfolgt ist. Im `doit` Verzeichnis wird nun der Befehl `docker-compose build` ausgeführt um die Anwendung zu bauen. Mit dem Kommando `docker-compose push` wird das Image der Anwendung auf die Registry befördert.
 
 ### Erstellung der Service Definitions
 
 Im Gegensatz zu Docker-Compose benötigt bei Kubernetes jeder Service mehrere Dateien die diesen definieren, auch Service Definitions genannt. Die Minimalkonfiguration eines Dienstes besteht hierbei aus Deployment und Service. Hierbei konfiguriert das Deployment den Dienst, bspw. wie viele Instanzen von dem Container laufen sollen, welches Container Image genutzt werden soll und welche Environment Variablen, während der Service für die Veröffentlichung zuständig ist, also unter welchem Hostname, Port, etc. der Dienst erreichbar sein soll.
 
-Die Erstellung der Service Definitions von Hand ist ein sehr zeitintensiver Prozess, weshalb wir das Tool [kompose](https://kompose.io/) nutzen. um aus der [docker-compose.yaml](https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) der ToDo-Anwendung die grundlegenden Service Definitions zu generieren. Da die autogenerierten Service Definitions jedoch nicht perfekt waren mussten noch einige kleine Änderungen, bspw. bei den Ports oder der Anzahl der Replicas vorgenommen werden. Auch der Headless Service für die AutoDiscovery der Elixir-Pods untereinander musste noch manuell ergänzt werden. Gleiches gilt auch für den HTTP Ingress Controller, der die Elixir-Anwendung via HTTPS auf Port 443 zugänglich macht.
+Die Erstellung der Service Definitions von Hand ist ein sehr zeitintensiver Prozess, weshalb wir das Tool [kompose](https://kompose.io/) nutzen. um aus der [docker-compose.yaml](https://github.com/Elixir2K8s/doit/blob/master/docker-compose.yml) der ToDo-Anwendung die grundlegenden Service Definitions zu generieren. Da die autogenerierten Service Definitions jedoch nicht perfekt waren mussten noch einige kleine Änderungen, bspw. bei den Ports oder der Anzahl der Replicas vorgenommen werden. Auch der Headless Service für die AutoDiscovery der Elixir-Pods untereinander sowie Umgebungsvariablen, welche für die Anwendungskonfiguration notwendig sind, musste noch manuell ergänzt werden. Gleiches gilt auch für den HTTP Ingress Controller, der die Elixir-Anwendung via HTTPS auf Port 443 zugänglich macht.
 
 ### Deployment der Anwendung
 
@@ -74,6 +75,6 @@ Um die Anwendung auf dem MicroK8s Kubernetes Cluster zu deployen wird jetzt inne
 
 Jetzt sollte die Anwendung unter https://localhost erreichbar sein.
 
-## Grafische Darstellung der Architektur
+## Grafische Darstellung der Kubernetes Architektur
 ![application-diagram](https://github.com/Elixir2K8s/docs/blob/main/application_diagram.png)
 
